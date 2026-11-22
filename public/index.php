@@ -40,6 +40,9 @@ header('X-Content-Type-Options: nosniff');
     .card { box-shadow:none; break-inside:avoid; }
   }
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Noto+Sans+Devanagari:wght@400;600&family=Noto+Sans+Telugu:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="theme.css">
 </head>
 <body class="bg-emerald-50 text-slate-800 min-h-screen flex flex-col font-sans">
 
@@ -840,5 +843,6 @@ header('X-Content-Type-Options: nosniff');
   init();
 })();
 </script>
+<script src="theme.js" defer></script>
 </body>
 </html>

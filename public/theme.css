@@ -369,3 +369,14 @@ html:not(.dark) article.card, html:not(.dark) .card, html:not(.dark) #composer {
 #chat > * { max-width: 100% !important; }
 #viewChat { background: transparent !important; }
 #chat { padding-right: 0 !important; }
+/* Remove text-size controls; branded banner above the chat; even chat card */
+.ds-controls, .ds-size { display: none !important; }
+#viewChat::before {
+  content: "🎓   💬   ✅   📄   ⏰";
+  display: flex; align-items: center; justify-content: center;
+  height: 120px; border-radius: 24px; font-size: 2rem; letter-spacing: .2em;
+  background: radial-gradient(500px 200px at 80% 0%, rgba(43,92,255,.65), transparent 70%), #0b0b0c;
+  box-shadow: 0 18px 40px -22px rgba(43,92,255,.9);
+}
+#chat > div, #chat > * { width: 100% !important; }
+#app > nav [data-tab] { font-weight: 700 !important; }

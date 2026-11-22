@@ -112,13 +112,13 @@ function rule_inputs(array $r = []): string
 <link rel="stylesheet" href="theme.css">
 <style>
   body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
-  .glass { background: rgba(255,255,255,.85); border: 1px solid #e2e8f0; border-radius: 1.25rem; box-shadow: 0 8px 24px -12px rgba(5,150,105,.3); }
+  .glass { background: rgba(255,255,255,.85); border: 1px solid #e2e8f0; border-radius: 1.25rem; box-shadow: 0 8px 24px -12px rgba(43,92,255,.25); }
   .inp { border: 1px solid #cbd5e1; border-radius: .6rem; padding: .45rem .6rem; font-size: .9rem; background: #fff; }
   .btn { border-radius: .6rem; padding: .45rem .9rem; font-weight: 600; font-size: .9rem; }
 </style>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-cyan-50 text-slate-800">
-<header class="bg-gradient-to-r from-emerald-700 via-teal-600 to-cyan-600 text-white">
+<body class="min-h-screen bg-gradient-to-br from-stone-100 via-stone-100 to-stone-100 text-slate-800">
+<header class="bg-gradient-to-r from-neutral-950 via-neutral-950 to-neutral-900 text-white">
   <div class="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between gap-3">
     <div><p class="text-xl font-extrabold">HaqDar · Rules admin</p>
       <p class="text-sm opacity-90">Scheme rules are data — edit them here when governments change them.</p></div>
@@ -130,7 +130,7 @@ function rule_inputs(array $r = []): string
 </header>
 
 <main class="max-w-5xl mx-auto px-4 py-6 space-y-5">
-  <?php if ($msg): ?><div class="glass p-3 text-sm font-semibold text-emerald-800"><?= h($msg) ?></div><?php endif; ?>
+  <?php if ($msg): ?><div class="glass p-3 text-sm font-semibold text-blue-700"><?= h($msg) ?></div><?php endif; ?>
 
   <?php if (!$isAdmin): ?>
     <form method="post" class="glass p-6 max-w-sm mx-auto space-y-3">
@@ -138,8 +138,8 @@ function rule_inputs(array $r = []): string
       <h1 class="font-bold text-lg">Admin login</h1>
       <?php if ($password === ''): ?><p class="text-sm text-amber-700">Set 'admin_password' in config.php to enable login.</p><?php endif; ?>
       <input type="password" name="password" class="inp w-full" placeholder="Password" required>
-      <button class="btn w-full bg-emerald-600 text-white">Log in</button>
-      <a href="index.php" class="block text-center text-sm text-emerald-700 underline">Back to app</a>
+      <button class="btn w-full bg-blue-600 text-white">Log in</button>
+      <a href="index.php" class="block text-center text-sm text-blue-600 underline">Back to app</a>
     </form>
   <?php else: foreach ($schemes as $s): $id = (int)$s['id']; ?>
     <section class="glass p-5">
@@ -148,10 +148,10 @@ function rule_inputs(array $r = []): string
           <h2 class="font-bold"><?= h($s['name']) ?> <span class="text-xs text-slate-500">(<?= h($s['level']) ?>)</span></h2>
           <p class="text-xs text-slate-500">Last verified: <?= h($s['last_verified'] ?? 'never') ?>
             <?php if ((int)$s['stale']): ?><span class="ml-1 rounded-full bg-red-100 text-red-700 px-2 py-0.5 font-semibold">Needs re-verification</span><?php endif; ?>
-            <?php if ($s['official_url']): ?> · <a class="text-emerald-700 underline" target="_blank" rel="noopener" href="<?= h($s['official_url']) ?>">Official source</a><?php endif; ?></p>
+            <?php if ($s['official_url']): ?> · <a class="text-blue-600 underline" target="_blank" rel="noopener" href="<?= h($s['official_url']) ?>">Official source</a><?php endif; ?></p>
         </div>
         <form method="post"><input type="hidden" name="csrf" value="<?= h($csrf) ?>"><input type="hidden" name="action" value="verify"><input type="hidden" name="scheme_id" value="<?= $id ?>">
-          <button class="btn bg-emerald-600 text-white">✓ Mark verified today</button></form>
+          <button class="btn bg-blue-600 text-white">✓ Mark verified today</button></form>
       </div>
       <div class="mt-3 space-y-2">
         <?php foreach ($rulesBy[$id] ?? [] as $r): ?>
@@ -165,7 +165,7 @@ function rule_inputs(array $r = []): string
         <form method="post" class="flex flex-wrap gap-2 items-center border-t border-dashed border-slate-300 pt-2">
           <input type="hidden" name="csrf" value="<?= h($csrf) ?>"><input type="hidden" name="scheme_id" value="<?= $id ?>">
           <?= rule_inputs() ?>
-          <button name="action" value="add_rule" class="btn bg-emerald-100 text-emerald-800">+ Add rule</button>
+          <button name="action" value="add_rule" class="btn bg-emerald-100 text-blue-700">+ Add rule</button>
         </form>
       </div>
     </section>

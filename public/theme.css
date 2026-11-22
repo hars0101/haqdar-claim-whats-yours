@@ -312,3 +312,44 @@ html:not(.dark) #app > footer #footTrust { color: #6ee7b7 !important; letter-spa
 #app > header > div { flex-wrap: nowrap; }
 .ds-controls { margin-left: auto; }
 .ds-controls button { color: #fff; font-size: .85rem; }
+
+/* ===== Brand layer: iharsha.online palette — energetic blue #2b5cff, ink #0b0b0c, paper #f3f2ee ===== */
+html:not(.dark) { --ds-bg: #f3f2ee; --ds-text: #0b0b0c; --ds-accent: #2b5cff; }
+html:not(.dark) body::before, html:not(.dark) body::after, html:not(.dark)::before { opacity: 0 !important; }
+html:not(.dark) body { background: #f3f2ee !important; }
+
+/* Swap every emerald utility to brand blue */
+.bg-emerald-50 { background-color: #eef2ff !important; }
+.bg-emerald-100 { background-color: #dde5ff !important; }
+.bg-emerald-600, .bg-emerald-700, .bg-emerald-800 { background-color: #2b5cff !important; }
+.text-emerald-600, .text-emerald-700, .text-emerald-800 { color: #2b5cff !important; }
+.border-emerald-100, .border-emerald-200, .border-emerald-300, .border-emerald-500 { border-color: #c9d6ff !important; }
+.focus\:ring-emerald-500:focus { --tw-ring-color: #2b5cff !important; }
+:focus-visible { outline-color: #2b5cff !important; }
+
+/* Language hero */
+#langScreen { background: radial-gradient(900px 500px at 85% 0%, rgba(43,92,255,.45), transparent 60%), #0b0b0c !important; }
+#langScreen .lang-btn:hover { background: #2b5cff !important; border-color: #2b5cff !important; box-shadow: 0 14px 34px -12px rgba(43,92,255,.8); }
+
+/* Header & footer: ink with blue hairline */
+html:not(.dark) #app > header { background: #0b0b0c !important; border-bottom: 3px solid #2b5cff; }
+#app > header [data-i18n="app_name"]::before { background: #2b5cff !important; }
+html:not(.dark) #app > footer { background: #0b0b0c !important; }
+html:not(.dark) #app > footer #footTrust { color: #8fa8ff !important; }
+html:not(.dark) #trust { color: #0b0b0c !important; }
+
+/* Tabs */
+#app > nav [data-tab].tab-active { color: #2b5cff !important; }
+#app > nav [data-tab].tab-active::after { background: #2b5cff !important; }
+html:not(.dark) #app > nav { background: rgba(243,242,238,.92) !important; }
+
+/* Buttons & chips */
+.btn { background: #2b5cff !important; box-shadow: 0 8px 20px -10px rgba(43,92,255,.85) !important; border-radius: 999px !important; }
+.btn:hover { background: #1f45d6 !important; }
+.btn-outline { background: #fff !important; color: #2b5cff !important; border: 1.5px solid #2b5cff !important; box-shadow: none !important; }
+.chip { border-color: #c9d6ff !important; }
+html:not(.dark) .chip:hover { border-color: #2b5cff !important; color: #2b5cff !important; background: #eef2ff !important; }
+
+/* Cards & composer on paper background */
+html:not(.dark) article.card, html:not(.dark) .card, html:not(.dark) #composer { border-color: #e4e2dc !important; box-shadow: 0 1px 2px rgba(11,11,12,.04), 0 14px 30px -20px rgba(11,11,12,.35) !important; }
+#modal > div { border-top-color: #2b5cff !important; }

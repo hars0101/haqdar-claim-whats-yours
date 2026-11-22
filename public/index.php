@@ -111,6 +111,45 @@ header('X-Content-Type-Options: nosniff');
     </div>
   </div>
 
+  <div class="w-full bg-[#f3f2ee] text-[#0b0b0c]">
+    <div class="max-w-6xl mx-auto px-6 py-16">
+      <p class="text-xs tracking-widest uppercase font-bold" style="color:#2b5cff">Under the hood</p>
+      <h2 class="mt-2 text-3xl font-extrabold tracking-tight">How HaqDar decides, and how it stays accurate</h2>
+      <div class="mt-10 grid md:grid-cols-2 gap-5">
+        <div class="rounded-2xl bg-white border border-neutral-200 p-6"><b class="block text-base mb-1">1. Understanding your words</b><p>Your sentence is read for age, category, income, course and college type. Any 12-digit number is removed first, so Aadhaar never reaches our servers or any AI.</p></div>
+        <div class="rounded-2xl bg-white border border-neutral-200 p-6"><b class="block text-base mb-1">2. Fixed rules decide, not AI</b><p>Eligibility is checked by a deterministic rules engine. The same answers always give the same result, and each rule is shown with your value.</p></div>
+        <div class="rounded-2xl bg-white border border-neutral-200 p-6"><b class="block text-base mb-1">3. Rules are editable data</b><p>When a government changes an income limit, an admin edits it in the rules panel and every result updates immediately. No code changes needed.</p></div>
+        <div class="rounded-2xl bg-white border border-neutral-200 p-6"><b class="block text-base mb-1">4. Freshness checks</b><p>Every scheme carries a "last verified" date. Anything not re-checked against its official source in 90 days is flagged for review.</p></div>
+        <div class="rounded-2xl bg-white border border-neutral-200 p-6"><b class="block text-base mb-1">5. Deadlines never lapse</b><p>Track each application from "documents ready" to "money received", add deadlines to your phone calendar, and get reminder emails 7, 3 and 1 day before.</p></div>
+        <div class="rounded-2xl bg-white border border-neutral-200 p-6"><b class="block text-base mb-1">6. Anonymous insights for partners</b><p>NGOs and service centres see totals only: interest per scheme, where families get stuck, and upcoming deadlines. No personal data.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="w-full bg-white text-[#0b0b0c]">
+    <div class="max-w-6xl mx-auto px-6 py-16 grid lg:grid-cols-2 gap-12">
+      <div>
+        <p class="text-xs tracking-widest uppercase font-bold" style="color:#2b5cff">Schemes covered</p>
+        <h2 class="mt-2 text-3xl font-extrabold tracking-tight">12 central and Telangana scholarships</h2>
+        <ul class="mt-6 grid sm:grid-cols-2 gap-x-6 gap-y-2 text-sm">
+          <li>• NSP Post-Matric (SC, ST, OBC, Minority)</li><li>• Central Sector Scholarship</li>
+          <li>• AICTE Pragati (girls)</li><li>• AICTE Saksham (disability)</li>
+          <li>• National Means-cum-Merit</li><li>• PM YASASVI</li>
+          <li>• Telangana ePASS Post-Matric</li><li>• Telangana RTF and MTF</li>
+        </ul>
+      </div>
+      <div>
+        <p class="text-xs tracking-widest uppercase font-bold" style="color:#2b5cff">Questions</p>
+        <h2 class="mt-2 text-3xl font-extrabold tracking-tight">Good to know</h2>
+        <div class="mt-6 space-y-4 text-sm">
+          <p><b class="block">Is it really free?</b>Yes. Applying for these scholarships is free, and so is HaqDar.</p>
+          <p><b class="block">Does "likely eligible" mean I will get it?</b>No. It means you match the published rules. The scheme authority makes the final decision.</p>
+          <p><b class="block">Do you store my details?</b>No names or ID numbers. Tracking uses an anonymous browser ID, and email reminders are optional.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="w-full bg-[#0b0b0c] text-white">
     <div class="max-w-6xl mx-auto px-6 py-14 grid md:grid-cols-2 gap-8 items-center">
       <div>

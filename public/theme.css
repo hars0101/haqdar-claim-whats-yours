@@ -353,3 +353,8 @@ html:not(.dark) .chip:hover { border-color: #2b5cff !important; color: #2b5cff !
 /* Cards & composer on paper background */
 html:not(.dark) article.card, html:not(.dark) .card, html:not(.dark) #composer { border-color: #e4e2dc !important; box-shadow: 0 1px 2px rgba(11,11,12,.04), 0 14px 30px -20px rgba(11,11,12,.35) !important; }
 #modal > div { border-top-color: #2b5cff !important; }
+/* Landing: light sections keep dark, readable text */
+#langScreen .bg-\[\#f3f2ee\] p, #langScreen .bg-white p, #langScreen .bg-white div { color: #404040 !important; }
+#langScreen .bg-\[\#f3f2ee\] b, #langScreen .bg-white b, #langScreen .bg-\[\#f3f2ee\] h2, #langScreen .bg-white h2 { color: #0b0b0c !important; }
+#langScreen .bg-\[\#f3f2ee\] p.uppercase, #langScreen .bg-white p.uppercase { color: #2b5cff !important; }
+#langScreen > div:first-child, #langScreen > div:nth-child(2) { position: relative; }

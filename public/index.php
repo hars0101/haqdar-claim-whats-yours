@@ -50,7 +50,7 @@ header('X-Content-Type-Options: nosniff');
 <body class="bg-emerald-50 text-slate-800 min-h-screen flex flex-col font-sans">
 
 <!-- First screen: big language picker -->
-<section id="langScreen" class="hidden min-h-screen flex flex-col">
+<section id="langScreen" class="hidden min-h-screen flex flex-col" style="background:#0b0b0c">
   <div class="w-full max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
     <span class="text-xl font-extrabold text-white tracking-tight"><span class="inline-grid place-items-center w-9 h-9 mr-2 rounded-xl" style="background:#2b5cff">₹</span>HaqDar</span>
     <nav class="flex gap-5 text-sm text-white/70">
@@ -78,6 +78,51 @@ header('X-Content-Type-Options: nosniff');
         <button type="button" class="lang-btn" data-pick="te" data-lang-name="te"></button>
       </div>
       <p class="mt-6 text-xs text-white/50">12 schemes · verified 22 Nov 2026 · We never ask for Aadhaar · Results are "likely", never guaranteed</p>
+    </div>
+  </div>
+
+  <div class="w-full bg-[#f3f2ee] text-[#0b0b0c]">
+    <div class="max-w-6xl mx-auto px-6 py-16 grid lg:grid-cols-3 gap-10">
+      <div>
+        <p class="text-xs tracking-widest uppercase font-bold" style="color:#2b5cff">Why we built this</p>
+        <h2 class="mt-2 text-3xl font-extrabold tracking-tight">Benefits go unclaimed. Middlemen get paid.</h2>
+      </div>
+      <div class="lg:col-span-2 grid sm:grid-cols-2 gap-6 text-[15px] leading-relaxed text-neutral-700">
+        <p><b class="text-[#0b0b0c]">Scattered information.</b> Scholarship rules sit across many central and state portals, written in dense official language.</p>
+        <p><b class="text-[#0b0b0c]">Unclear documents.</b> Families often learn about a missing certificate only after a deadline has passed.</p>
+        <p><b class="text-[#0b0b0c]">Paid help for free services.</b> Many students pay agents to fill forms that are free to submit.</p>
+        <p><b class="text-[#0b0b0c]">Our answer.</b> Plain-language input, transparent rules, a personal checklist and reminders, all free and in the student's own language.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="w-full bg-white text-[#0b0b0c]">
+    <div class="max-w-6xl mx-auto px-6 py-16">
+      <p class="text-xs tracking-widest uppercase font-bold" style="color:#2b5cff">What you get</p>
+      <h2 class="mt-2 text-3xl font-extrabold tracking-tight">Built for students, families and field workers</h2>
+      <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-5 text-sm text-neutral-700">
+        <div class="rounded-2xl border border-neutral-200 p-6"><b class="block text-base text-[#0b0b0c] mb-1">🎤 Voice in 3 languages</b>Speak or type in English, Hindi or Telugu. No long forms.</div>
+        <div class="rounded-2xl border border-neutral-200 p-6"><b class="block text-base text-[#0b0b0c] mb-1">✅ Reasons you can see</b>Every result lists the exact rule it is based on, with your value.</div>
+        <div class="rounded-2xl border border-neutral-200 p-6"><b class="block text-base text-[#0b0b0c] mb-1">📄 Personal checklist</b>Only the documents you need, plus step-by-step instructions.</div>
+        <div class="rounded-2xl border border-neutral-200 p-6"><b class="block text-base text-[#0b0b0c] mb-1">⏰ Track &amp; remind</b>Application status, deadline countdowns and calendar reminders.</div>
+        <div class="rounded-2xl border border-neutral-200 p-6"><b class="block text-base text-[#0b0b0c] mb-1">🔒 Privacy first</b>Aadhaar numbers are blocked automatically. No names stored.</div>
+        <div class="rounded-2xl border border-neutral-200 p-6"><b class="block text-base text-[#0b0b0c] mb-1">🛠️ Rules as data</b>Admins update eligibility rules when governments change them. <a href="admin.php" style="color:#2b5cff" class="font-semibold">Admin →</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="w-full bg-[#0b0b0c] text-white">
+    <div class="max-w-6xl mx-auto px-6 py-14 grid md:grid-cols-2 gap-8 items-center">
+      <div>
+        <p class="text-xs tracking-widest uppercase font-bold" style="color:#6d8dff">Built by</p>
+        <h2 class="mt-2 text-3xl font-extrabold tracking-tight">Harsha Imadabathuni</h2>
+        <p class="mt-3 text-white/70 max-w-lg">Built for the Codebenders ACE Builders Hackathon 2026, Problem Statement 5: Citizens &amp; Public Services. PHP, MySQL and vanilla JavaScript, deployed on cPanel.</p>
+      </div>
+      <div class="flex flex-wrap gap-3 md:justify-end">
+        <a href="https://iharsha.online" target="_blank" rel="noopener" class="rounded-full px-5 py-3 font-semibold" style="background:#2b5cff">Portfolio ↗</a>
+        <a href="https://github.com/hars0101/haqdar-claim-whats-yours" target="_blank" rel="noopener" class="rounded-full px-5 py-3 font-semibold border border-white/25">Source code ↗</a>
+        <a href="insights.php" class="rounded-full px-5 py-3 font-semibold border border-white/25">Partner dashboard</a>
+      </div>
     </div>
   </div>
 </section>

@@ -1,0 +1,10 @@
+config.php
+*.env
+vendor/
+.codebenders/
+.DS_Store
+Thumbs.db
+*.log
+error_log
+.idea/
+.vscode/

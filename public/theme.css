@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* Digital Seva premium theme, layered on top of the existing Tailwind + inline markup. */
 
 :root {
@@ -380,3 +381,18 @@ html:not(.dark) article.card, html:not(.dark) .card, html:not(.dark) #composer {
 }
 #chat > div, #chat > * { width: 100% !important; }
 #app > nav [data-tab] { font-weight: 700 !important; }
+/* Chat header: localized headline over a subtle grid with blue glow (replaces emoji strip) */
+#viewChat::before {
+  content: "Find scholarships you’re likely eligible for — free, no middlemen";
+  display: flex !important; align-items: flex-end; justify-content: flex-start;
+  height: auto !important; min-height: 112px; padding: 22px 26px;
+  font-size: clamp(1.15rem, 2.4vw, 1.6rem) !important; font-weight: 800; letter-spacing: -.01em !important;
+  line-height: 1.25; color: #fff; text-align: left;
+  background:
+    radial-gradient(420px 180px at 88% -10%, rgba(43,92,255,.8), transparent 70%),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 1px, transparent 1px 32px),
+    repeating-linear-gradient(0deg, rgba(255,255,255,.05) 0 1px, transparent 1px 32px),
+    #0b0b0c !important;
+}
+html[lang="hi"] #viewChat::before { content: "जिन छात्रवृत्तियों के आप संभवतः पात्र हैं, उन्हें खोजें — मुफ़्त, बिना बिचौलियों के"; }
+html[lang="te"] #viewChat::before { content: "మీకు అర్హత ఉండే స్కాలర్‌షిప్‌లను కనుగొనండి — ఉచితంగా, మధ్యవర్తులు లేకుండా"; }

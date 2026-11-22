@@ -1,5 +1,5 @@
 # HaqDar – Claim What's Yours
-
+# live link: https://iharsha.online/haqdar/public/
 HaqDar helps low-income students in Telangana, India find government scholarships they are likely to qualify for. It explains why, lists the documents you need, guides you through applying, and tracks deadlines.
 
 > **TODO before going live:** Every scheme value in `seed.sql` (income limits, benefit amounts, deadlines, documents, and web links) MUST be checked by a person against the official government source. Do not launch until this is done.

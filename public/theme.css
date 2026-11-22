@@ -358,3 +358,14 @@ html:not(.dark) article.card, html:not(.dark) .card, html:not(.dark) #composer {
 #langScreen .bg-\[\#f3f2ee\] b, #langScreen .bg-white b, #langScreen .bg-\[\#f3f2ee\] h2, #langScreen .bg-white h2 { color: #0b0b0c !important; }
 #langScreen .bg-\[\#f3f2ee\] p.uppercase, #langScreen .bg-white p.uppercase { color: #2b5cff !important; }
 #langScreen > div:first-child, #langScreen > div:nth-child(2) { position: relative; }
+/* Final polish */
+.ds-theme-toggle { display: none !important; }
+#langScreen nav { background: transparent !important; border: 0 !important; box-shadow: none !important; backdrop-filter: none !important; position: static !important; }
+#langScreen nav a { color: rgba(255,255,255,.75) !important; font-weight: 600; }
+#langScreen nav a:hover { color: #fff !important; }
+#langScreen p.text-xs { font-size: .78rem !important; line-height: 1.5 !important; letter-spacing: .02em; }
+#langScreen p.uppercase { font-size: .72rem !important; letter-spacing: .14em !important; }
+#langScreen .text-sm, #langScreen .text-sm div { font-size: .9rem !important; }
+#chat > * { max-width: 100% !important; }
+#viewChat { background: transparent !important; }
+#chat { padding-right: 0 !important; }

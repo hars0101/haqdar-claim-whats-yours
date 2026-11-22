@@ -97,7 +97,7 @@
     var wrap = document.createElement('div');
     wrap.className = 'ds-controls flex items-center gap-2';
 
-    var dark = applyTheme(safeGet(THEME_KEY) === 'dark');
+    var dark = applyTheme(false);
     var toggle = document.createElement('button');
     toggle.type = 'button';
     toggle.className = 'ds-theme-toggle min-h-[44px] min-w-[44px] rounded-full bg-white/20 px-2';

@@ -308,3 +308,7 @@ html:not(.dark) #app > footer #footTrust { color: #6ee7b7 !important; letter-spa
 
 /* Modal */
 #modal > div { border-radius: 20px !important; border-top: 4px solid #10b981; }
+/* Header controls sit inline next to the language picker */
+#app > header > div { flex-wrap: nowrap; }
+.ds-controls { margin-left: auto; }
+.ds-controls button { color: #fff; font-size: .85rem; }

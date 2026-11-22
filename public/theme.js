@@ -127,7 +127,7 @@
     wrap.appendChild(toggle);
     wrap.appendChild(sizeButton('A-', -SCALE_STEP, 'Decrease text size'));
     wrap.appendChild(sizeButton('A+', SCALE_STEP, 'Increase text size'));
-    header.appendChild(wrap);
+    (header.querySelector('div') || header).appendChild(wrap);
   }
 
   /* ---------- Init ---------- */

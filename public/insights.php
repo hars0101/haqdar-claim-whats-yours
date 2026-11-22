@@ -2,177 +2,155 @@
 declare(strict_types=1);
 require_once __DIR__ . '/../app/db.php';
 
-/** Escape any value for safe HTML output. */
-function e($value): string
-{
-    return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8');
-}
+header('Content-Type: text/html; charset=utf-8');
+header('X-Content-Type-Options: nosniff');
 
-/** Render one horizontal bar row. Width is a percentage of $max (min 2% when value > 0). */
-function render_bar(string $label, int $value, int $max): void
-{
-    $pct = $max > 0 ? (int)round($value / $max * 100) : 0;
-    if ($value > 0 && $pct < 2) {
-        $pct = 2;
-    }
-    echo '<div class="mb-2">';
-    echo '<div class="flex justify-between text-sm mb-1"><span>' . e($label) . '</span><span class="font-semibold">' . e($value) . '</span></div>';
-    echo '<div class="w-full bg-gray-200 rounded h-4"><div class="bg-teal-600 h-4 rounded" style="width: ' . $pct . '%"></div></div>';
-    echo '</div>';
-}
+function h($v): string { return htmlspecialchars((string)$v, ENT_QUOTES, 'UTF-8'); }
 
-$total = 0;
-$perScheme = [];
-$funnel = [];
-$deadlines = [];
-$stale = [];
-$statuses = ['not_started', 'documents_ready', 'applied', 'under_verification', 'received'];
-$ok = true;
+$STATUS = [
+    'not_started' => 'Not started',
+    'documents_ready' => 'Documents ready',
+    'applied' => 'Applied',
+    'under_verification' => 'Under verification',
+    'received' => 'Money received',
+];
 
+$error = null;
+$total = 0; $schemesCount = 0; $perScheme = []; $funnel = []; $deadlines = []; $stale = [];
 try {
     $pdo = db();
-
-    $stmt = $pdo->prepare('SELECT COUNT(*) AS c FROM applications');
-    $stmt->execute();
-    $row = $stmt->fetch();
-    $total = (int)($row['c'] ?? 0);
-
-    $stmt = $pdo->prepare(
+    $schemesCount = (int)$pdo->query('SELECT COUNT(*) FROM schemes WHERE is_active = 1')->fetchColumn();
+    $total = (int)$pdo->query('SELECT COUNT(*) FROM applications')->fetchColumn();
+    $perScheme = $pdo->query(
         'SELECT s.name, COUNT(a.id) AS n FROM schemes s
          LEFT JOIN applications a ON a.scheme_id = s.id
-         GROUP BY s.id, s.name ORDER BY n DESC'
-    );
-    $stmt->execute();
-    $perScheme = $stmt->fetchAll();
-
-    $stmt = $pdo->prepare('SELECT status, COUNT(*) AS n FROM applications GROUP BY status');
-    $stmt->execute();
-    $counts = [];
-    foreach ($stmt->fetchAll() as $r) {
-        $counts[(string)$r['status']] = (int)$r['n'];
+         WHERE s.is_active = 1 GROUP BY s.id, s.name ORDER BY n DESC, s.name'
+    )->fetchAll();
+    foreach ($pdo->query('SELECT status, COUNT(*) AS n FROM applications GROUP BY status')->fetchAll() as $r) {
+        $funnel[$r['status']] = (int)$r['n'];
     }
-    foreach ($statuses as $st) {
-        $funnel[$st] = $counts[$st] ?? 0;
-    }
-
-    $stmt = $pdo->prepare(
-        'SELECT s.name, d.label, d.deadline_date FROM scheme_deadlines d
-         JOIN schemes s ON s.id = d.scheme_id
-         WHERE d.deadline_date BETWEEN CURDATE() AND CURDATE() + INTERVAL 90 DAY
+    $deadlines = $pdo->query(
+        'SELECT s.name, d.deadline_date, d.label, DATEDIFF(d.deadline_date, CURDATE()) AS days_left
+         FROM scheme_deadlines d JOIN schemes s ON s.id = d.scheme_id
+         WHERE s.is_active = 1 AND d.deadline_date BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 180 DAY)
          ORDER BY d.deadline_date'
-    );
-    $stmt->execute();
-    $deadlines = $stmt->fetchAll();
-
-    $stmt = $pdo->prepare(
+    )->fetchAll();
+    $stale = $pdo->query(
         'SELECT name, last_verified FROM schemes
-         WHERE last_verified IS NULL OR last_verified < CURDATE() - INTERVAL 90 DAY
+         WHERE is_active = 1 AND (last_verified IS NULL OR last_verified < DATE_SUB(CURDATE(), INTERVAL 90 DAY))
          ORDER BY last_verified'
-    );
-    $stmt->execute();
-    $stale = $stmt->fetchAll();
+    )->fetchAll();
 } catch (Throwable $e) {
     error_log('insights.php: ' . $e->getMessage());
-    $ok = false;
+    $error = 'Live numbers are unavailable right now. Please try again shortly.';
 }
-
-$maxScheme = 0;
-foreach ($perScheme as $r) {
-    $maxScheme = max($maxScheme, (int)$r['n']);
-}
-$maxFunnel = $funnel ? max($funnel) : 0;
+$maxScheme = max(1, ...array_map(fn($r) => (int)$r['n'], $perScheme ?: [['n' => 1]]));
+$maxFunnel = max(1, ...(array_values($funnel) ?: [1]));
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Partner dashboard — HaqDar</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="theme.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HaqDar · Partner dashboard</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; background: #f6f8fb; }
+  .panel { background: #fff; border: 1px solid #e5e7eb; border-radius: 16px;
+           box-shadow: 0 1px 2px rgba(15,23,42,.04), 0 12px 28px -18px rgba(11,31,58,.35); }
+  .bar { height: .6rem; border-radius: 999px; background: linear-gradient(90deg,#059669,#0ea5e9); }
+  .kpi { font-size: 2.25rem; font-weight: 800; letter-spacing: -.03em; }
+</style>
 </head>
-<body class="bg-gray-50 text-gray-900 min-h-screen">
-<main class="max-w-3xl mx-auto p-6 space-y-8">
+<body class="min-h-screen text-slate-800">
+<header style="background: linear-gradient(90deg,#0b1f3a,#12355e); border-bottom: 3px solid #10b981;" class="text-white">
+  <div class="max-w-6xl mx-auto px-4 py-5 flex flex-wrap items-center justify-between gap-3">
+    <div class="flex items-center gap-3">
+      <span class="inline-grid place-items-center w-10 h-10 rounded-xl font-bold" style="background: linear-gradient(135deg,#10b981,#0ea5e9)">₹</span>
+      <div>
+        <p class="text-xl font-extrabold tracking-tight">HaqDar · Partner dashboard</p>
+        <p class="text-sm text-white/75">For NGOs, Common Service Centres &amp; State Governments</p>
+      </div>
+    </div>
+    <a href="index.php" class="rounded-full bg-white/10 border border-white/25 px-4 py-2 text-sm font-semibold hover:bg-white/20">← Back to app</a>
+  </div>
+</header>
 
-    <header class="flex flex-wrap items-center justify-between gap-2">
-        <h1 class="text-2xl font-bold">Partner dashboard — for NGOs, CSCs &amp; State Govts</h1>
-        <a href="index.php" class="text-teal-700 underline">Back to HaqDar</a>
-    </header>
-    <p class="text-sm text-gray-600">Anonymous, aggregated figures only. No personal details are shown on this page.</p>
+<main class="max-w-6xl mx-auto px-4 py-8 space-y-6">
+  <p class="text-sm text-slate-500">Anonymous totals only. No names, emails, Aadhaar or session IDs are shown or stored here.</p>
 
-<?php if (!$ok): ?>
-    <section class="bg-yellow-50 border border-yellow-300 rounded p-4">
-        <p>Insights are temporarily unavailable. Please try again later.</p>
-    </section>
-<?php else: ?>
+  <?php if ($error): ?>
+    <div class="panel p-4 text-amber-800"><?= h($error) ?></div>
+  <?php endif; ?>
 
-    <section class="bg-white rounded shadow p-5">
-        <h2 class="text-lg font-semibold mb-2">Total tracked applications</h2>
-        <p class="text-4xl font-bold text-teal-700"><?= e($total) ?></p>
-    </section>
+  <section class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+    <div class="panel p-5"><p class="text-xs uppercase tracking-wider text-slate-500">Schemes covered</p><p class="kpi text-slate-900"><?= $schemesCount ?></p></div>
+    <div class="panel p-5"><p class="text-xs uppercase tracking-wider text-slate-500">Applications tracked</p><p class="kpi text-emerald-700"><?= $total ?></p></div>
+    <div class="panel p-5"><p class="text-xs uppercase tracking-wider text-slate-500">Deadlines · 180 days</p><p class="kpi text-amber-600"><?= count($deadlines) ?></p></div>
+    <div class="panel p-5"><p class="text-xs uppercase tracking-wider text-slate-500">Need re-verification</p><p class="kpi <?= $stale ? 'text-red-600' : 'text-emerald-700' ?>"><?= count($stale) ?></p></div>
+  </section>
 
-    <section class="bg-white rounded shadow p-5">
-        <h2 class="text-lg font-semibold mb-3">Applications per scheme</h2>
-        <?php if (!$perScheme): ?>
-            <p class="text-sm text-gray-600">No schemes found.</p>
-        <?php endif; ?>
-        <?php foreach ($perScheme as $r): ?>
-            <?php render_bar((string)$r['name'], (int)$r['n'], $maxScheme); ?>
+  <section class="grid lg:grid-cols-2 gap-6">
+    <div class="panel p-6">
+      <h2 class="font-bold text-lg mb-4">Interest by scheme</h2>
+      <?php foreach ($perScheme as $r): ?>
+        <div class="mb-3">
+          <div class="flex justify-between text-sm"><span><?= h($r['name']) ?></span><span class="font-semibold"><?= (int)$r['n'] ?></span></div>
+          <div class="bg-slate-100 rounded-full mt-1"><div class="bar" style="width: <?= max(2, (int)round(100 * (int)$r['n'] / $maxScheme)) ?>%"></div></div>
+        </div>
+      <?php endforeach; ?>
+    </div>
+    <div class="space-y-6">
+      <div class="panel p-6">
+        <h2 class="font-bold text-lg mb-4">Application funnel</h2>
+        <?php foreach ($STATUS as $key => $label): $n = $funnel[$key] ?? 0; ?>
+          <div class="mb-3">
+            <div class="flex justify-between text-sm"><span><?= h($label) ?></span><span class="font-semibold"><?= $n ?></span></div>
+            <div class="bg-slate-100 rounded-full mt-1"><div class="bar" style="width: <?= max(2, (int)round(100 * $n / $maxFunnel)) ?>%"></div></div>
+          </div>
         <?php endforeach; ?>
-    </section>
-
-    <section class="bg-white rounded shadow p-5">
-        <h2 class="text-lg font-semibold mb-3">Application funnel by status</h2>
-        <?php foreach ($funnel as $st => $n): ?>
-            <?php render_bar(str_replace('_', ' ', $st), $n, $maxFunnel); ?>
-        <?php endforeach; ?>
-    </section>
-
-    <section class="bg-white rounded shadow p-5">
-        <h2 class="text-lg font-semibold mb-3">Deadlines in the next 90 days</h2>
-        <?php if (!$deadlines): ?>
-            <p class="text-sm text-gray-600">No deadlines in the next 90 days.</p>
-        <?php else: ?>
-            <ul class="divide-y">
-            <?php foreach ($deadlines as $d): ?>
-                <li class="py-2 flex justify-between gap-4 text-sm">
-                    <span><?= e($d['name']) ?> — <?= e($d['label']) ?></span>
-                    <span class="font-semibold whitespace-nowrap"><?= e($d['deadline_date']) ?></span>
-                </li>
-            <?php endforeach; ?>
-            </ul>
-        <?php endif; ?>
-    </section>
-
-    <section class="bg-white rounded shadow p-5">
-        <h2 class="text-lg font-semibold mb-1">Schemes needing re-verification</h2>
-        <p class="text-xs text-gray-600 mb-3">Schemes not verified in the last 90 days. A scheme with no verification date (NULL) is treated as needing re-verification.</p>
+        <p class="text-xs text-slate-500 mt-2">Shows where families get stuck, so field workers know where to help.</p>
+      </div>
+      <div class="panel p-6">
+        <h2 class="font-bold text-lg mb-1">Data freshness</h2>
+        <p class="text-sm text-slate-500 mb-3">Rules not checked against the official source in 90 days are flagged.</p>
         <?php if (!$stale): ?>
-            <p class="text-sm text-gray-600">All schemes were verified recently.</p>
-        <?php else: ?>
-            <ul class="divide-y">
-            <?php foreach ($stale as $s): ?>
-                <li class="py-2 flex justify-between gap-4 text-sm">
-                    <span><?= e($s['name']) ?></span>
-                    <span class="whitespace-nowrap"><?= $s['last_verified'] === null ? 'never verified' : e($s['last_verified']) ?></span>
-                </li>
-            <?php endforeach; ?>
-            </ul>
-        <?php endif; ?>
-    </section>
+          <p class="text-sm text-emerald-700 font-semibold">✅ All schemes verified within the last 90 days.</p>
+        <?php else: foreach ($stale as $s): ?>
+          <p class="text-sm">⚠️ <?= h($s['name']) ?> · last verified <?= h($s['last_verified'] ?? 'never') ?></p>
+        <?php endforeach; endif; ?>
+      </div>
+    </div>
+  </section>
 
-<?php endif; ?>
+  <section class="panel p-6">
+    <h2 class="font-bold text-lg mb-3">Upcoming deadlines</h2>
+    <?php if (!$deadlines): ?><p class="text-sm text-slate-500">No deadlines in the next 180 days.</p><?php endif; ?>
+    <ul class="divide-y divide-slate-100">
+      <?php foreach ($deadlines as $d): $left = (int)$d['days_left']; ?>
+        <li class="py-3 flex flex-wrap justify-between gap-2 text-sm">
+          <span><b><?= h($d['name']) ?></b> · <?= h($d['label']) ?></span>
+          <span class="rounded-full px-3 py-0.5 font-semibold <?= $left < 30 ? 'bg-red-100 text-red-700' : 'bg-emerald-50 text-emerald-800' ?>"><?= h($d['deadline_date']) ?> · <?= $left ?> days</span>
+        </li>
+      <?php endforeach; ?>
+    </ul>
+  </section>
 
-    <section class="bg-white rounded shadow p-5">
-        <h2 class="text-lg font-semibold mb-3">Who pays &amp; why</h2>
-        <ul class="list-disc pl-5 space-y-1 text-sm">
-            <li>Free for citizens: checking eligibility and tracking applications costs nothing.</li>
-            <li>CSCs, MeeSeva centres &amp; NGOs license an assisted mode to serve applicants.</li>
-            <li>CSR funds sponsor districts, covering outreach and assisted application support.</li>
-            <li>State departments get &quot;unclaimed benefits&quot; insights to target enrolment.</li>
-        </ul>
-    </section>
-
+  <section class="panel p-6">
+    <h2 class="font-bold text-lg mb-4">Who pays &amp; why</h2>
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
+      <div class="rounded-2xl bg-emerald-50 p-4"><p class="font-bold mb-1">Citizens · always free</p><p>No fees and no middlemen. Families keep the full benefit.</p></div>
+      <div class="rounded-2xl bg-sky-50 p-4"><p class="font-bold mb-1">CSCs &amp; NGOs</p><p>License an assisted mode so one operator can help many families quickly.</p></div>
+      <div class="rounded-2xl bg-amber-50 p-4"><p class="font-bold mb-1">CSR funds</p><p>Sponsor a district and receive an impact report of families helped.</p></div>
+      <div class="rounded-2xl bg-indigo-50 p-4"><p class="font-bold mb-1">State departments</p><p>See which benefits go unclaimed, and where, to target outreach.</p></div>
+    </div>
+  </section>
 </main>
+
+<footer style="background:#0b1f3a" class="text-center text-xs text-white/70 py-6">
+  HaqDar · Free service · Likely eligibility, never guaranteed · Final decision is by the scheme authority.
+</footer>
 </body>
 </html>

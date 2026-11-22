@@ -14,14 +14,25 @@ var T = {
     tab_chat: 'Find',
     tab_results: 'Results',
     tab_apps: 'My Applications',
-    opening_msg: 'Tell me about yourself — studies, family income, category. Type or tap the mic.',
+    opening_msg: 'Tell me about yourself — studies, family income, category. Tap the big button and speak, or type below.',
     persona_en: 'I am a BC student, family income 1.5 lakh, B.Tech at a government college',
     persona_hi: 'मैं SC छात्र हूँ, परिवार की आय 2 लाख, सरकारी कॉलेज में B.Tech',
     persona_te: 'నేను BC విద్యార్థిని, కుటుంబ ఆదాయం 1.5 లక్షలు, ప్రభుత్వ కళాశాలలో B.Tech',
     placeholder_input: 'Type here… e.g. I am 19, SC, BCom',
     btn_send: 'Send',
-    btn_mic: '🎙 Speak',
-    mic_listening: 'Listening…',
+    btn_mic: '🎤 Tap and speak',
+    mic_listening: 'Listening… tap to stop',
+    type_or: 'Or type instead',
+    voice_unsupported: 'Voice is not available on this device. Please type your answer below.',
+    gloss_hint: 'Tap any underlined word to understand it, for example Domicile, Bonafide or NSP.',
+    gloss_post_matric: 'Scholarship for students studying after Class 10.',
+    gloss_income_cert: "An official paper that states your family's yearly income.",
+    gloss_caste_cert: 'An official paper that proves your caste category, such as SC, ST or BC.',
+    gloss_bonafide: 'A letter from your college confirming you study there.',
+    gloss_nsp: 'National Scholarship Portal, the government website for many scholarships.',
+    gloss_epass: 'Online scholarship system of some state governments.',
+    gloss_tuition_fee: 'The government pays back part or all of your college fee after you have paid it.',
+    gloss_domicile: 'Proof that you live in a particular state.',
     blocked_aadhaar: '⚠️ Never share Aadhaar — we removed it.',
     q_category: 'Which category are you in?',
     q_family_income: 'Roughly what is your annual family income?',
@@ -62,7 +73,10 @@ var T = {
     btn_official: 'Official website', last_verified: 'Last verified', not_verified: 'not verified',
     deadline_none: 'no upcoming deadline', days_left: '{n} days left', days_red: 'Closing soon',
     docs_title: 'Documents to keep ready', steps_title: 'Steps',
-    btn_track: 'Track this', btn_tracked: 'Tracked ✓', btn_calendar: 'Add to calendar',
+    ready_of: '{n} of {m} documents ready', ready_badge: 'Ready to apply!',
+    journey_label: 'Application journey',
+    journey_docs: 'Documents', journey_apply: 'Apply online', journey_verify: 'Verification', journey_money: 'Money received',
+    btn_track: 'Track this', btn_tracked: 'Tracked ✓', btn_calendar: 'Add to calendar', toast_tracked: 'Tracked ✓',
     whatif_title: '💡 What would change this',
     needs_line: 'Needs: {label}', tellus_line: 'Tell us: {label}',
     err_prefix: 'Something went wrong: ', err_network: 'Could not reach the server. Please try again.',
@@ -80,7 +94,11 @@ var T = {
     modal_4: 'We never store Aadhaar. Any Aadhaar number is removed before anything else happens.',
     btn_close: 'Close',
     link_partners: 'For partners',
-    sec_likely_label: 'Likely eligible', sec_maybe_label: 'Maybe', sec_no_label: 'Not a match'
+    sec_likely_label: 'Likely eligible', sec_maybe_label: 'Maybe', sec_no_label: 'Not a match',
+    aria_close: 'Close', aria_smaller: 'Smaller text', aria_larger: 'Larger text',
+    helper_toggle: "I'm helping someone", helper_banner: 'Assisted by a helper — no personal data kept',
+    helper_new: 'Start new person', confirm_new: "Clear this person's answers and documents from this device?",
+    welcome_title: 'Welcome back — your last check found {x} schemes', welcome_view: 'View', welcome_fresh: 'Start fresh'
   },
   hi: {
     app_name: 'HaqDar',
@@ -94,14 +112,25 @@ var T = {
     tab_chat: 'खोजें',
     tab_results: 'परिणाम',
     tab_apps: 'मेरे आवेदन',
-    opening_msg: 'अपने बारे में बताइए — पढ़ाई, परिवार की आय, वर्ग। लिखें या माइक दबाएँ।',
+    opening_msg: 'अपने बारे में बताइए — पढ़ाई, परिवार की आय, वर्ग। बड़ा बटन दबाकर बोलें, या नीचे लिखें।',
     persona_en: 'I am a BC student, family income 1.5 lakh, B.Tech at a government college',
     persona_hi: 'मैं SC छात्र हूँ, परिवार की आय 2 लाख, सरकारी कॉलेज में B.Tech',
     persona_te: 'నేను BC విద్యార్థిని, కుటుంబ ఆదాయం 1.5 లక్షలు, ప్రభుత్వ కళాశాలలో B.Tech',
     placeholder_input: 'यहाँ लिखें… जैसे मैं 19 साल का हूँ, SC, BCom',
     btn_send: 'भेजें',
-    btn_mic: '🎙 बोलें',
-    mic_listening: 'सुन रहे हैं…',
+    btn_mic: '🎤 टैप करके बोलें',
+    mic_listening: 'सुन रहे हैं… रोकने के लिए टैप करें',
+    type_or: 'या नीचे लिखें',
+    voice_unsupported: 'इस डिवाइस पर आवाज़ उपलब्ध नहीं है। कृपया नीचे लिखकर बताएँ।',
+    gloss_hint: 'किसी भी रेखांकित शब्द पर टैप करें, जैसे Domicile, Bonafide या NSP।',
+    gloss_post_matric: 'कक्षा 10 के बाद पढ़ने वाले छात्रों के लिए छात्रवृत्ति।',
+    gloss_income_cert: 'आपकी पारिवारिक वार्षिक आय बताने वाला सरकारी प्रमाण-पत्र।',
+    gloss_caste_cert: 'आपकी जाति श्रेणी (SC, ST, BC) साबित करने वाला सरकारी प्रमाण-पत्र।',
+    gloss_bonafide: 'कॉलेज का वह पत्र जो बताता है कि आप वहाँ पढ़ते हैं।',
+    gloss_nsp: 'राष्ट्रीय छात्रवृत्ति पोर्टल, कई छात्रवृत्तियों की सरकारी वेबसाइट।',
+    gloss_epass: 'कुछ राज्य सरकारों की ऑनलाइन छात्रवृत्ति प्रणाली।',
+    gloss_tuition_fee: 'फीस भरने के बाद सरकार उसका कुछ या पूरा हिस्सा लौटाती है।',
+    gloss_domicile: 'इस बात का प्रमाण कि आप किसी राज्य में रहते हैं।',
     blocked_aadhaar: '⚠️ आधार कभी साझा न करें — हमने उसे हटा दिया है।',
     q_category: 'आप किस वर्ग में आते हैं?',
     q_family_income: 'परिवार की वार्षिक आय लगभग कितनी है?',
@@ -142,7 +171,10 @@ var T = {
     btn_official: 'आधिकारिक वेबसाइट', last_verified: 'अंतिम सत्यापन', not_verified: 'सत्यापित नहीं',
     deadline_none: 'कोई आगामी अंतिम तिथि नहीं', days_left: '{n} दिन बाकी', days_red: 'जल्द समाप्त',
     docs_title: 'तैयार रखने वाले दस्तावेज़', steps_title: 'चरण',
-    btn_track: 'इसे ट्रैक करें', btn_tracked: 'ट्रैक किया ✓', btn_calendar: 'कैलेंडर में जोड़ें',
+    ready_of: '{m} में से {n} दस्तावेज़ तैयार', ready_badge: 'आवेदन के लिए तैयार!',
+    journey_label: 'आवेदन की यात्रा',
+    journey_docs: 'दस्तावेज़', journey_apply: 'ऑनलाइन आवेदन', journey_verify: 'सत्यापन', journey_money: 'पैसा प्राप्त',
+    btn_track: 'इसे ट्रैक करें', btn_tracked: 'ट्रैक किया ✓', btn_calendar: 'कैलेंडर में जोड़ें', toast_tracked: 'ट्रैक किया ✓',
     whatif_title: '💡 यह क्या बदल सकता है',
     needs_line: 'ज़रूरत: {label}', tellus_line: 'हमें बताएँ: {label}',
     err_prefix: 'कुछ गलत हो गया: ', err_network: 'सर्वर से संपर्क नहीं हो सका। कृपया फिर कोशिश करें।',
@@ -160,7 +192,11 @@ var T = {
     modal_4: 'हम आधार कभी संग्रहित नहीं करते। कोई भी आधार नंबर सबसे पहले हटा दिया जाता है।',
     btn_close: 'बंद करें',
     link_partners: 'साझेदारों के लिए',
-    sec_likely_label: 'संभावित रूप से पात्र', sec_maybe_label: 'शायद', sec_no_label: 'मेल नहीं खाती'
+    sec_likely_label: 'संभावित रूप से पात्र', sec_maybe_label: 'शायद', sec_no_label: 'मेल नहीं खाती',
+    aria_close: 'बंद करें', aria_smaller: 'छोटा अक्षर', aria_larger: 'बड़ा अक्षर',
+    helper_toggle: 'मैं किसी की मदद कर रहा हूँ', helper_banner: 'सहायक की मदद से — कोई निजी डेटा संग्रहित नहीं',
+    helper_new: 'नया व्यक्ति शुरू करें', confirm_new: 'क्या इस व्यक्ति के उत्तर और दस्तावेज़ इस डिवाइस से हटाएँ?',
+    welcome_title: 'वापस स्वागत है — आपकी पिछली जाँच में {x} योजनाएँ मिलीं', welcome_view: 'देखें', welcome_fresh: 'नए सिरे से शुरू करें'
   },
   te: {
     app_name: 'HaqDar',
@@ -174,14 +210,25 @@ var T = {
     tab_chat: 'వెతకండి',
     tab_results: 'ఫలితాలు',
     tab_apps: 'నా దరఖాస్తులు',
-    opening_msg: 'మీ గురించి చెప్పండి — చదువు, కుటుంబ ఆదాయం, కేటగిరీ. టైప్ చేయండి లేదా మైక్ నొక్కండి.',
+    opening_msg: 'మీ గురించి చెప్పండి — చదువు, కుటుంబ ఆదాయం, కేటగిరీ. పెద్ద బటన్ నొక్కి మాట్లాడండి, లేదా కింద టైప్ చేయండి.',
     persona_en: 'I am a BC student, family income 1.5 lakh, B.Tech at a government college',
     persona_hi: 'मैं SC छात्र हूँ, परिवार की आय 2 लाख, सरकारी कॉलेज में B.Tech',
     persona_te: 'నేను BC విద్యార్థిని, కుటుంబ ఆదాయం 1.5 లక్షలు, ప్రభుత్వ కళాశాలలో B.Tech',
     placeholder_input: 'ఇక్కడ టైప్ చేయండి… ఉదా: నా వయస్సు 19, SC, బీకామ్',
     btn_send: 'పంపండి',
-    btn_mic: '🎙 మాట్లాడండి',
-    mic_listening: 'వింటోంది…',
+    btn_mic: '🎤 నొక్కి మాట్లాడండి',
+    mic_listening: 'వింటోంది… ఆపడానికి నొక్కండి',
+    type_or: 'లేదా కింద టైప్ చేయండి',
+    voice_unsupported: 'ఈ పరికరంలో వాయిస్ అందుబాటులో లేదు. దయచేసి కింద టైప్ చేయండి.',
+    gloss_hint: 'అర్థం తెలుసుకోవడానికి అండర్‌లైన్ చేసిన ఏ పదంపై అయినా నొక్కండి, ఉదా: Domicile, Bonafide, NSP.',
+    gloss_post_matric: '10వ తరగతి తర్వాత చదివే విద్యార్థుల కోసం స్కాలర్‌షిప్.',
+    gloss_income_cert: 'కుటుంబ వార్షిక ఆదాయాన్ని తెలిపే అధికారిక పత్రం.',
+    gloss_caste_cert: 'మీ కులం కేటగిరీ (SC, ST, BC) నిరూపించే అధికారిక పత్రం.',
+    gloss_bonafide: 'మీరు ఆ కళాశాలలో చదువుతున్నారని కళాశాల ఇచ్చే లేఖ.',
+    gloss_nsp: 'జాతీయ స్కాలర్‌షిప్ పోర్టల్, అనేక స్కాలర్‌షిప్‌ల ప్రభుత్వ వెబ్‌సైట్.',
+    gloss_epass: 'కొన్ని రాష్ట్ర ప్రభుత్వాల ఆన్‌లైన్ స్కాలర్‌షిప్ వ్యవస్థ.',
+    gloss_tuition_fee: 'మీరు ఫీజు చెల్లించిన తర్వాత ప్రభుత్వం అందులో కొంత లేదా మొత్తం తిరిగి ఇస్తుంది.',
+    gloss_domicile: 'మీరు ఒక నిర్దిష్ట రాష్ట్రంలో నివసిస్తున్నారని రుజువు.',
     blocked_aadhaar: '⚠️ ఆధార్ ఎప్పుడూ షేర్ చేయవద్దు — మేము దానిని తీసివేశాము.',
     q_category: 'మీ కేటగిరీ ఏమిటి?',
     q_family_income: 'కుటుంబ వార్షిక ఆదాయం సుమారు ఎంత?',
@@ -222,7 +269,10 @@ var T = {
     btn_official: 'అధికారిక వెబ్‌సైట్', last_verified: 'చివరిసారి ధృవీకరించినది', not_verified: 'ధృవీకరించలేదు',
     deadline_none: 'రాబోయే గడువు లేదు', days_left: '{n} రోజులు మిగిలి ఉన్నాయి', days_red: 'త్వరలో ముగుస్తుంది',
     docs_title: 'సిద్ధంగా ఉంచుకోవాల్సిన పత్రాలు', steps_title: 'దశలు',
-    btn_track: 'ట్రాక్ చేయి', btn_tracked: 'ట్రాక్ చేయబడింది ✓', btn_calendar: 'క్యాలెండర్‌కు జోడించు',
+    ready_of: '{m} లో {n} పత్రాలు సిద్ధం', ready_badge: 'దరఖాస్తుకు సిద్ధం!',
+    journey_label: 'దరఖాస్తు ప్రయాణం',
+    journey_docs: 'పత్రాలు', journey_apply: 'ఆన్‌లైన్ దరఖాస్తు', journey_verify: 'ధృవీకరణ', journey_money: 'డబ్బు అందింది',
+    btn_track: 'ట్రాక్ చేయి', btn_tracked: 'ట్రాక్ చేయబడింది ✓', btn_calendar: 'క్యాలెండర్‌కు జోడించు', toast_tracked: 'ట్రాక్ చేయబడింది ✓',
     whatif_title: '💡 దీన్ని ఏది మార్చగలదు',
     needs_line: 'అవసరం: {label}', tellus_line: 'మాకు చెప్పండి: {label}',
     err_prefix: 'ఏదో తప్పు జరిగింది: ', err_network: 'సర్వర్‌ను చేరలేకపోయాం. దయచేసి మళ్ళీ ప్రయత్నించండి.',
@@ -240,7 +290,11 @@ var T = {
     modal_4: 'ఆధార్‌ను మేము ఎప్పుడూ నిల్వ చేయము. ఏ ఆధార్ నంబర్ అయినా ముందే తీసివేయబడుతుంది.',
     btn_close: 'మూసివేయి',
     link_partners: 'భాగస్వాముల కోసం',
-    sec_likely_label: 'అర్హత అవకాశం ఉంది', sec_maybe_label: 'బహుశా', sec_no_label: 'సరిపోలలేదు'
+    sec_likely_label: 'అర్హత అవకాశం ఉంది', sec_maybe_label: 'బహుశా', sec_no_label: 'సరిపోలలేదు',
+    aria_close: 'మూసివేయి', aria_smaller: 'చిన్న అక్షరాలు', aria_larger: 'పెద్ద అక్షరాలు',
+    helper_toggle: 'నేను ఎవరికైనా సహాయం చేస్తున్నాను', helper_banner: 'సహాయకుడి సహాయంతో — వ్యక్తిగత డేటా నిల్వ చేయబడదు',
+    helper_new: 'కొత్త వ్యక్తితో ప్రారంభించు', confirm_new: 'ఈ వ్యక్తి జవాబులు మరియు పత్రాలను ఈ పరికరం నుండి తొలగించాలా?',
+    welcome_title: 'తిరిగి స్వాగతం — మీ చివరి తనిఖీలో {x} పథకాలు దొరికాయి', welcome_view: 'చూడండి', welcome_fresh: 'కొత్తగా ప్రారంభించు'
   }
 };
 
@@ -292,7 +346,7 @@ function speechLocale() {
   return SPEECH_LOCALE[getLang()] || 'en-IN';
 }
 
-/** Fills [data-i18n] text, [data-i18n-placeholder] placeholders and [data-lang-name] option/button labels. */
+/** Fills [data-i18n] text, [data-i18n-placeholder] placeholders, [data-i18n-aria] aria-labels and [data-lang-name] labels. */
 function applyI18n(root) {
   root = root || document;
   document.title = t('page_title');
@@ -301,6 +355,9 @@ function applyI18n(root) {
   });
   root.querySelectorAll('[data-i18n-placeholder]').forEach(function (el) {
     el.setAttribute('placeholder', t(el.getAttribute('data-i18n-placeholder')));
+  });
+  root.querySelectorAll('[data-i18n-aria]').forEach(function (el) {
+    el.setAttribute('aria-label', t(el.getAttribute('data-i18n-aria')));
   });
   root.querySelectorAll('[data-lang-name]').forEach(function (el) {
     el.textContent = t('lang_name_' + el.getAttribute('data-lang-name'));

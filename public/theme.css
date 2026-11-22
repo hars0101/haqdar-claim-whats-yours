@@ -215,3 +215,96 @@ html.dark .urgent {
     scroll-behavior: auto !important;
   }
 }
+
+/* ===== Corporate layer: consulting-grade look (navy + emerald, crisp, calm). Pure CSS, no markup changes. ===== */
+html:not(.dark) {
+  --ds-bg: #f6f8fb;
+  --ds-text: #0f172a;
+  --ds-accent: #047857;
+}
+html:not(.dark) body::before,
+html:not(.dark) body::after,
+html:not(.dark)::before { opacity: .18 !important; }
+
+/* Wider, airier layout on desktop */
+@media (min-width: 768px) {
+  #app .max-w-2xl { max-width: 52rem !important; }
+  #app main { padding-top: 2rem !important; }
+}
+
+/* Language picker as a hero */
+#langScreen {
+  background: radial-gradient(1200px 600px at 10% -10%, rgba(16,185,129,.35), transparent 60%),
+              radial-gradient(900px 500px at 110% 110%, rgba(56,189,248,.25), transparent 60%),
+              linear-gradient(160deg, #0b1f3a 0%, #0f2d4f 55%, #064e3b 100%) !important;
+  color: #fff;
+}
+#langScreen h1 { color: #fff !important; font-size: clamp(2.5rem, 7vw, 4.5rem) !important; font-weight: 800 !important; letter-spacing: -.03em; }
+#langScreen p { color: rgba(255,255,255,.8) !important; font-size: 1.15rem !important; letter-spacing: .02em; }
+#langScreen .lang-btn {
+  background: rgba(255,255,255,.08) !important; color: #fff !important;
+  border: 1px solid rgba(255,255,255,.22) !important; border-radius: 14px !important;
+  min-height: 64px; font-size: 1.25rem !important; font-weight: 700 !important;
+  backdrop-filter: blur(8px); transition: all .2s ease;
+}
+#langScreen .lang-btn:hover { background: #10b981 !important; border-color: #10b981 !important; transform: translateY(-2px); box-shadow: 0 12px 30px -10px rgba(16,185,129,.6); }
+
+/* Header: deep navy with emerald hairline */
+html:not(.dark) #app > header {
+  background: linear-gradient(90deg, #0b1f3a, #12355e) !important;
+  border-bottom: 3px solid #10b981; box-shadow: 0 6px 24px -12px rgba(11,31,58,.6);
+}
+#app > header [data-i18n="app_name"] { font-size: 1.4rem !important; font-weight: 800 !important; letter-spacing: -.02em; }
+#app > header [data-i18n="app_name"]::before {
+  content: "₹"; display: inline-grid; place-items: center; width: 2rem; height: 2rem; margin-right: .55rem;
+  border-radius: 10px; background: linear-gradient(135deg, #10b981, #0ea5e9); color: #fff; font-size: 1rem; vertical-align: middle;
+}
+#app > header select { border-radius: 999px !important; border: 0 !important; font-weight: 600; }
+
+/* Trust strip as badges row */
+html:not(.dark) #trust { color: #0b1f3a !important; letter-spacing: .04em; text-transform: uppercase; font-size: .72rem !important; }
+html:not(.dark) #trust ~ *, html:not(.dark) #trust { background: transparent; }
+
+/* Tabs: clean underline navigation */
+html:not(.dark) #app > nav { background: rgba(255,255,255,.92) !important; backdrop-filter: blur(10px); border-bottom: 1px solid #e2e8f0 !important; }
+#app > nav [data-tab] { position: relative; color: #475569; letter-spacing: .01em; transition: color .2s; }
+#app > nav [data-tab]::after { content: ""; position: absolute; left: 25%; right: 25%; bottom: 0; height: 3px; border-radius: 3px; background: transparent; transition: background .2s; }
+#app > nav [data-tab][aria-selected="true"], #app > nav [data-tab].active, #app > nav [data-tab].tab-active { color: #047857 !important; }
+#app > nav [data-tab][aria-selected="true"]::after, #app > nav [data-tab].active::after, #app > nav [data-tab].tab-active::after { background: #10b981; }
+
+/* Buttons */
+.btn {
+  border-radius: 12px !important; font-weight: 700 !important; letter-spacing: .01em;
+  background: linear-gradient(180deg, #059669, #047857) !important; color: #fff !important;
+  box-shadow: 0 6px 16px -8px rgba(4,120,87,.7); transition: transform .15s, box-shadow .15s;
+}
+.btn:hover { transform: translateY(-1px); box-shadow: 0 10px 22px -10px rgba(4,120,87,.8); }
+.btn-outline { background: #fff !important; color: #047857 !important; border: 1.5px solid #10b981 !important; box-shadow: none; }
+html.dark .btn-outline { background: transparent !important; }
+.chip { border-radius: 999px !important; font-weight: 600; transition: all .15s; }
+html:not(.dark) .chip:hover { border-color: #10b981 !important; color: #047857; background: #ecfdf5 !important; }
+
+/* Composer: floating search-bar feel */
+#composer { background: rgba(255,255,255,.95); padding: .5rem; border-radius: 18px; box-shadow: 0 12px 32px -14px rgba(11,31,58,.35); border: 1px solid #e2e8f0; }
+html.dark #composer { background: rgba(15,23,42,.9); border-color: rgba(255,255,255,.1); }
+#composer #input { border: 0 !important; font-size: 1.05rem; }
+
+/* Chat bubbles */
+.bubble { border-radius: 18px !important; line-height: 1.55; box-shadow: 0 4px 14px -8px rgba(11,31,58,.25); }
+
+/* Cards: white, hairline border, status accent */
+html:not(.dark) article.card, html:not(.dark) .card {
+  background: #fff !important; border: 1px solid #e5e7eb !important; border-radius: 16px !important;
+  box-shadow: 0 1px 2px rgba(15,23,42,.04), 0 12px 28px -18px rgba(11,31,58,.35) !important;
+}
+article.card { transition: transform .2s ease, box-shadow .2s ease; }
+@media (hover: hover) { article.card:hover { transform: translateY(-3px); } }
+article.card h3 { letter-spacing: -.01em; }
+
+/* Footer: navy band */
+html:not(.dark) #app > footer { background: #0b1f3a !important; border: 0 !important; }
+html:not(.dark) #app > footer, html:not(.dark) #app > footer p, html:not(.dark) #app > footer a, html:not(.dark) #app > footer button { color: rgba(255,255,255,.85) !important; }
+html:not(.dark) #app > footer #footTrust { color: #6ee7b7 !important; letter-spacing: .05em; text-transform: uppercase; }
+
+/* Modal */
+#modal > div { border-radius: 20px !important; border-top: 4px solid #10b981; }

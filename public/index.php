@@ -50,13 +50,35 @@ header('X-Content-Type-Options: nosniff');
 <body class="bg-emerald-50 text-slate-800 min-h-screen flex flex-col font-sans">
 
 <!-- First screen: big language picker -->
-<section id="langScreen" class="hidden min-h-screen flex flex-col items-center justify-center gap-5 p-6">
-  <h1 class="text-3xl font-bold text-emerald-800" data-i18n="app_name"></h1>
-  <p class="text-lg text-slate-600" data-i18n="lang_title"></p>
-  <div class="grid gap-4 w-full max-w-sm">
-    <button type="button" class="lang-btn" data-pick="en" data-lang-name="en"></button>
-    <button type="button" class="lang-btn" data-pick="hi" data-lang-name="hi"></button>
-    <button type="button" class="lang-btn" data-pick="te" data-lang-name="te"></button>
+<section id="langScreen" class="hidden min-h-screen flex flex-col">
+  <div class="w-full max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
+    <span class="text-xl font-extrabold text-white tracking-tight"><span class="inline-grid place-items-center w-9 h-9 mr-2 rounded-xl" style="background:#2b5cff">₹</span>HaqDar</span>
+    <nav class="flex gap-5 text-sm text-white/70">
+      <a href="insights.php" class="hover:text-white">For partners</a>
+      <a href="admin.php" class="hover:text-white">Admin</a>
+    </nav>
+  </div>
+  <div class="flex-1 w-full max-w-6xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center py-10">
+    <div>
+      <p class="inline-block rounded-full border border-white/20 px-3 py-1 text-xs tracking-widest uppercase text-white/70 mb-5">Free · No middlemen · Telangana students</p>
+      <h1 class="text-white font-extrabold tracking-tight leading-[1.05]" style="font-size:clamp(2.4rem,5.5vw,4.2rem)">Claim the scholarships <span style="color:#6d8dff">you're entitled to.</span></h1>
+      <p class="mt-5 text-lg text-white/70 max-w-xl">Describe your situation in your own words, by voice or text. HaqDar shows which government schemes you are likely eligible for, why, which documents you need, and exactly how to apply.</p>
+      <div class="mt-8 grid sm:grid-cols-3 gap-3 text-sm">
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-4 text-white/80"><b class="block text-white text-base">1 · Speak</b>English, हिन्दी or తెలుగు</div>
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-4 text-white/80"><b class="block text-white text-base">2 · See why</b>Every match shows its rule</div>
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-4 text-white/80"><b class="block text-white text-base">3 · Apply &amp; track</b>Checklist, steps, reminders</div>
+      </div>
+    </div>
+    <div class="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
+      <p class="text-white text-2xl font-bold">Choose your language</p>
+      <p class="text-white/60 mb-6">भाषा चुनें · భాష ఎంచుకోండి</p>
+      <div class="grid gap-4">
+        <button type="button" class="lang-btn" data-pick="en" data-lang-name="en"></button>
+        <button type="button" class="lang-btn" data-pick="hi" data-lang-name="hi"></button>
+        <button type="button" class="lang-btn" data-pick="te" data-lang-name="te"></button>
+      </div>
+      <p class="mt-6 text-xs text-white/50">12 schemes · verified 22 Nov 2026 · We never ask for Aadhaar · Results are "likely", never guaranteed</p>
+    </div>
   </div>
 </section>
 
@@ -117,6 +139,7 @@ header('X-Content-Type-Options: nosniff');
       <p class="text-xs" data-i18n="footer_note"></p>
       <div class="flex justify-center gap-4 pt-2">
         <button type="button" id="openModal" class="underline text-emerald-700 min-h-[44px]" data-i18n="btn_how"></button>
+        <a href="admin.php" class="underline text-emerald-700 min-h-[44px] inline-flex items-center">Admin</a>
         <a href="insights.php" class="underline text-emerald-700 min-h-[44px] inline-flex items-center" data-i18n="link_partners"></a>
       </div>
     </div>
